@@ -12,7 +12,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:HiddenField ID="EmployeeID" runat="server" />
+                        <asp:HiddenField ID="HFEmployeeID" runat="server" />
                     </td>
                 </tr>
                 <tr>

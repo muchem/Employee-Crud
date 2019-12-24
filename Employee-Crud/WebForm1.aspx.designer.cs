@@ -24,13 +24,13 @@ namespace Employee_Crud
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// EmployeeID control.
+        /// HFEmployeeID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField EmployeeID;
+        protected global::System.Web.UI.WebControls.HiddenField HFEmployeeID;
 
         /// <summary>
         /// Label1 control.

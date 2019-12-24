@@ -12,33 +12,60 @@ namespace Employee_Crud
     public partial class WebForm1 : System.Web.UI.Page
     {
 
-        String ConnectionStr = @"Data Source = localhost;Database = CrudOperations; Integrated Security = SSPI";
+      
+        SqlConnection Connection = new SqlConnection(@"Data Source = localhost;Database = CrudOperations; Integrated Security = SSPI");
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack){
-
                 Deletebnt.Enabled = false;
-
+                 FillGrid();
             }
-
-            using (SqlConnection Connection = new SqlConnection(ConnectionStr))
+         
+        }
+        void FillGrid()
+        {
+            if(Connection.State == ConnectionState.Closed)
             {
                 Connection.Open();
-                String sqlQuery = "SELECT * FROM Employees";
-                SqlDataAdapter sqladpt = new SqlDataAdapter(sqlQuery, Connection);
+                SqlDataAdapter sqladpt = new SqlDataAdapter("ViewEmployees",Connection);
+                sqladpt.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataTable dataTb = new DataTable();
                 sqladpt.Fill(dataTb);
+                Connection.Close();
                 PersonView.DataSource = dataTb;
                 PersonView.DataBind();
-                Connection.Close();
+                
             }
-
         }
-
         protected void Savebnt_Click(object sender, EventArgs e)
         {
 
+         
+              if(Connection.State == ConnectionState.Closed)
+                {
+                    Connection.Open();
+                    SqlCommand com = new SqlCommand("InsertOrUpdate", Connection);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.AddWithValue("@EmployeeID", (HFEmployeeID.Value == "" ? 0 : Convert.ToInt32(HFEmployeeID.Value)));
+                    com.Parameters.AddWithValue("@FirstName", fnameTxt.Text.Trim());
+                    com.Parameters.AddWithValue("@LastName", lnameTxt.Text.Trim());
+                    com.Parameters.AddWithValue("@Email", emailTxt.Text.Trim());
+                    com.ExecuteNonQuery();
+                    Connection.Close();
+                    Clear();
+                    if(HFEmployeeID.Value == "")
+                    {
+                        SucessMessage.Text = "Success";
+                        FillGrid();
+                     }
+                    else
+                    {
+                        SucessMessage.Text = "Update";
+                        FillGrid();
+                    }
+                   
+                }
         }
 
         protected void Deletebnt_Click(object sender, EventArgs e)
@@ -47,10 +74,11 @@ namespace Employee_Crud
         }
         public void Clear()
         {
-            EmployeeID.Value = "";
+            HFEmployeeID.Value = "";
             fnameTxt.Text = "";
             lnameTxt.Text = "";
             emailTxt.Text = "";
+            SucessMessage.Text = "";
             Deletebnt.Enabled = false;
             Savebnt.Text = "Save";
 
