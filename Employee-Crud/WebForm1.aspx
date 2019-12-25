@@ -5,10 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-</head>
+    <link rel ="stylesheet" href ="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    </head>
 <body>
    <form id="form1" runat="server">
-        <div>
+       <header>
+           <div class ="logo">
+               <h2 class ="text-center">Employee Crud Application</h2>
+           </div>
+       </header>
+        <div class ="container">
             <table>
                 <tr>
                     <td>
@@ -56,6 +64,7 @@
                     ControlToValidate="emailTxt" ValidationExpression ="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></asp:RegularExpressionValidator></td>
                 </tr>
             </table>
+            
              <asp:GridView ID="PersonView" runat="server" AutoGenerateColumns ="false">
                 <Columns>
                     <asp:BoundField DataField="FirstName" HeaderText="First Name" />
@@ -70,7 +79,5 @@
             </asp:GridView>
         </div>
     </form>
-     
-
 </body>
 </html>

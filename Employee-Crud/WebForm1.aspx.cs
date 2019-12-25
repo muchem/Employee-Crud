@@ -114,7 +114,7 @@ namespace Employee_Crud
                 HFEmployeeID.Value = employeeId.ToString();
                 fnameTxt.Text = dataTb.Rows[0]["FirstName"].ToString();
                 lnameTxt.Text = dataTb.Rows[0]["LastName"].ToString(); 
-                emailTxt.Text = dataTb.Rows[0]["Email"].ToString(); ;
+                emailTxt.Text = dataTb.Rows[0]["Email"].ToString(); 
                 Savebnt.Text = "Update";
                 Deletebnt.Enabled = true;
             }
