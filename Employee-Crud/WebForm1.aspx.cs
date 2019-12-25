@@ -70,7 +70,18 @@ namespace Employee_Crud
 
         protected void Deletebnt_Click(object sender, EventArgs e)
         {
-
+            if (Connection.State == ConnectionState.Closed)
+            {
+                Connection.Open();
+                SqlCommand com = new SqlCommand("DeleteEmployeeById", Connection);
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.AddWithValue("@EmployeeID",Convert.ToInt32(HFEmployeeID.Value));
+                com.ExecuteNonQuery();
+                Connection.Close();
+                Clear();
+                FillGrid();
+                SucessMessage.Text = "Successfully Deleted";
+            }
         }
         public void Clear()
         {
@@ -86,6 +97,27 @@ namespace Employee_Crud
         protected void Resetbnt_Click(object sender, EventArgs e)
         {
             Clear();
+        }
+
+        protected void ViewBnt_Click(object sender, EventArgs e)
+        {
+            int employeeId = Convert.ToInt32((sender as LinkButton).CommandArgument);
+            if (Connection.State == ConnectionState.Closed)
+            {
+                Connection.Open();
+                SqlDataAdapter sqladpt = new SqlDataAdapter("ViewEmployeeByID", Connection);
+                sqladpt.SelectCommand.CommandType = CommandType.StoredProcedure;
+                sqladpt.SelectCommand.Parameters.AddWithValue("@EmployeeID", employeeId);
+                DataTable dataTb = new DataTable();
+                sqladpt.Fill(dataTb);
+                Connection.Close();
+                HFEmployeeID.Value = employeeId.ToString();
+                fnameTxt.Text = dataTb.Rows[0]["FirstName"].ToString();
+                lnameTxt.Text = dataTb.Rows[0]["LastName"].ToString(); 
+                emailTxt.Text = dataTb.Rows[0]["Email"].ToString(); ;
+                Savebnt.Text = "Update";
+                Deletebnt.Enabled = true;
+            }
         }
     }
 }

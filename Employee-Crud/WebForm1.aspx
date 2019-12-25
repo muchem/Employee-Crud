@@ -20,7 +20,7 @@
                         <asp:Label ID="Label1" runat="server" Text="First Name"></asp:Label>
                     </td>
                     <td> <asp:TextBox ID="fnameTxt" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ControlToValidate="fnameTxt"></asp:RequiredFieldValidator>
+                        
                     </td>
                 </tr>
                  <tr>
@@ -28,7 +28,7 @@
                         <asp:Label ID="Label2" runat="server" Text="Last Name"></asp:Label>
                     </td>
                     <td> <asp:TextBox ID="lnameTxt" runat="server"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ControlToValidate="lnameTxt"></asp:RequiredFieldValidator>
+                           
                     </td>
                 </tr>
                  <tr>
@@ -36,7 +36,7 @@
                        <asp:Label ID="Label3" runat="server" Text="Email"></asp:Label>
                     </td>
                     <td> <asp:TextBox ID="emailTxt" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ControlToValidate="emailTxt"></asp:RequiredFieldValidator>
+                      
                     </td>
                 </tr>
                  <tr>
@@ -61,6 +61,11 @@
                     <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                     <asp:BoundField DataField="LastName" HeaderText="last Name" />
                     <asp:BoundField DataField="Email" HeaderText="Email" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="ViewBnt" runat="server" CommandArgument='<%# Eval("EmployeeID")%>' OnClick="ViewBnt_Click">View</asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>
