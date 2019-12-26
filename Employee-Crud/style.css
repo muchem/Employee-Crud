@@ -11,3 +11,10 @@ header {
     font-family: 'Josefin Sans', sans-serif;
     margin-bottom:0px;
 }
+.col-a{
+    padding:8px;
+}
+footer{
+    postion:absolute;
+    bottom:0;
+}
